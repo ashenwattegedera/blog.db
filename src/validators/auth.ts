@@ -1,0 +1,15 @@
+import { z } from "zod";
+
+export const loginSchema = z.object({
+  email: z.email({ error: "Enter a valid email address." }),
+  password: z.string().min(1, { error: "Password is required." }),
+});
+
+export type LoginInput = z.infer<typeof loginSchema>;
+
+export type LoginFormState = { error?: string } | undefined;
+
+export type LoginAction = (
+  prevState: LoginFormState,
+  formData: FormData,
+) => Promise<LoginFormState>;

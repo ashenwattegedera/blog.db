@@ -1,0 +1,26 @@
+
+> blog.db@0.1.0 dev
+> next dev
+
+▲ Next.js 16.2.12 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://192.168.1.201:3000
+- Environments: .env
+✓ Ready in 843ms
+
+ GET /api/auth/csrf 200 in 1253ms (next.js: 1220ms, application-code: 33ms)
+ POST /api/auth/callback/credentials 302 in 293ms (next.js: 9ms, application-code: 284ms)
+ POST /api/test-actions-tmp 200 in 108ms (next.js: 92ms, application-code: 16ms)
+ POST /api/test-actions-tmp 200 in 23ms (next.js: 2ms, application-code: 21ms)
+ POST /api/test-actions-tmp 200 in 24ms (next.js: 2ms, application-code: 22ms)
+ GET /dashboard/media 200 in 1064ms (next.js: 619ms, proxy.ts: 139ms, application-code: 306ms)
+✓ Compiled in 52ms
+ GET / 200 in 567ms (next.js: 301ms, application-code: 266ms)
+ GET /posts/hello-blog-db 200 in 1412ms (next.js: 1102ms, application-code: 310ms)
+ GET /categories/general 200 in 869ms (next.js: 807ms, application-code: 62ms)
+ GET /tags/react 200 in 892ms (next.js: 817ms, application-code: 75ms)
+ GET /posts/nonexistent 404 in 68ms (next.js: 9ms, application-code: 59ms)
+ GET /posts/hello-blog-db 200 in 142ms (next.js: 9ms, application-code: 133ms)
+ GET / 200 in 45ms (next.js: 4ms, application-code: 41ms)
+ GET / 200 in 105ms (next.js: 3ms, application-code: 102ms)
+[?25h

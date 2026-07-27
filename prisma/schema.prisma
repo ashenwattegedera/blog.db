@@ -11,3 +11,76 @@ generator client {
 datasource db {
   provider = "postgresql"
 }
+
+enum PostStatus {
+  DRAFT
+  PUBLISHED
+}
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  name         String?
+  passwordHash String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  posts Post[]
+}
+
+model Post {
+  id          String     @id @default(cuid())
+  title       String
+  slug        String     @unique
+  contentJson Json
+  status      PostStatus @default(DRAFT)
+  publishedAt DateTime?
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+
+  author     User      @relation(fields: [authorId], references: [id])
+  authorId   String
+  category   Category? @relation(fields: [categoryId], references: [id])
+  categoryId String?
+  tags       PostTag[]
+
+  @@index([status, publishedAt])
+  @@index([categoryId])
+}
+
+model Category {
+  id    String @id @default(cuid())
+  name  String @unique
+  slug  String @unique
+
+  posts Post[]
+}
+
+model Tag {
+  id    String @id @default(cuid())
+  name  String @unique
+  slug  String @unique
+
+  posts PostTag[]
+}
+
+model PostTag {
+  post   Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
+  postId String
+  tag    Tag    @relation(fields: [tagId], references: [id], onDelete: Cascade)
+  tagId  String
+
+  @@id([postId, tagId])
+}
+
+model Media {
+  id        String   @id @default(cuid())
+  url       String
+  publicId  String? // provider-side identifier (e.g. Cloudinary public_id), for deletion
+  altText   String?
+  width     Int?
+  height    Int?
+  format    String?
+  sizeBytes Int?
+  createdAt DateTime @default(now())
+}
