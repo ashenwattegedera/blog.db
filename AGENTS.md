@@ -48,18 +48,33 @@ for "just a quick" action or route.
 6. Before adding a new npm dependency, state why it's needed in the commit
    message, and run `npm audit` after installing.
 7. Before committing new or changed Server Actions/Route Handlers, run the
-   `security-reviewer` subagent (`.claude/agents/security-reviewer.md`) on
+   `security-reviewer` subagent (`.agents/security-reviewer.md`) on
    the changed files.
 
 ## Conventions
 - Keep the layered folders (`actions/`, `lib/`, `validators/`) even though
   this is a monolith — don't collapse business logic into page components.
+- Route groups: `app/(admin)/` holds `/login` + `/dashboard/*`;
+  `app/(public)/` holds the public blog. Next.js 16 renamed middleware —
+  the route guard is `src/proxy.ts` (do not create `middleware.ts`).
+- Client components never import `@/actions/*` — Server Components pass
+  action functions as props; shared action types live in `src/validators/`.
 - Update `docs/server-actions.md` whenever a Server Action is added, removed,
   or its signature changes. Treat it as the source of truth for "what
   actions already exist" before adding a new one.
 - Update `prisma/schema.prisma` migrations with descriptive names
   (`npx prisma migrate dev --name add_post_tags`), never generic ones like
   `update`.
+
+## Project docs map
+- `docs/server-actions.md` — source of truth for existing Server Actions.
+- `docs/PROJECT-STATE.md` — living snapshot of what's implemented vs
+  planned, missing deps, known doc inconsistencies. Keep it current.
+- `docs/phase-1-tasks.md` — dependency-ordered task list for the current
+  phase; check items off as they land.
+- `.agents/skills/blogdb-server-actions/` and
+  `.agents/skills/blogdb-prisma-migrations/` — required workflows for
+  server-side and schema changes.
 
 ## What NOT to do without asking
 - Don't add multi-user roles/permissions — this is single-admin by design.
